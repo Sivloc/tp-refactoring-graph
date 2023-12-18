@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
+import org.acme.graph.model.Path;
 import org.acme.graph.model.Vertex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +38,7 @@ public class DijkstraPathFinder {
 	 * @return
 	 * @throws NotFoundException 
 	 */
-	public List<Edge> findPath(Vertex origin, Vertex destination) throws NotFoundException{
+	public Path findPath(Vertex origin, Vertex destination) throws NotFoundException{
 		log.info("findPath({},{})...", origin, destination);
 		initGraph(origin);
 		Vertex current;
@@ -45,7 +46,8 @@ public class DijkstraPathFinder {
 			visit(current);
 			if (destination.getReachingEdge() != null) {
 				log.info("findPath({},{}) : path found", origin, destination);
-				return buildPath(destination);
+				List<Edge> path = buildPath(destination);
+				return new Path(path);
 			}
 		}
 		throw new NotFoundException(String.format("Path not found from "+origin+" to "+destination));

@@ -34,19 +34,19 @@ public class DijkstraRegressTest {
 
 	@Test
 	public void testABFound() throws NotFoundException {
-		List<Edge> path = finder.findPath(graph.findVertex("a"), graph.findVertex("b"));
+		List<Edge> path = finder.findPath(graph.findVertex("a"), graph.findVertex("b")).getEdges();
 		assertNotNull(path);
 		assertEquals(1, path.size());
 	}
 
 	@Test(expected=NotFoundException.class)
 	public void testBANotFound() throws NotFoundException {
-		List<Edge> path = finder.findPath(graph.findVertex("b"), graph.findVertex("a"));
+		List<Edge> path = finder.findPath(graph.findVertex("b"), graph.findVertex("a")).getEdges();
 	}
 
 	@Test
 	public void testACFoundWithCorrectOrder() throws NotFoundException {
-		List<Edge> path = finder.findPath(graph.findVertex("a"), graph.findVertex("c"));
+		List<Edge> path = finder.findPath(graph.findVertex("a"), graph.findVertex("c")).getEdges();
 		assertNotNull(path);
 		assertEquals(2, path.size());
 

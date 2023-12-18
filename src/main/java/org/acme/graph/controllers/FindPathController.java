@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
+import org.acme.graph.model.Path;
 import org.acme.graph.model.Vertex;
 import org.acme.graph.routing.DijkstraPathFinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class FindPathController {
 	private Graph graph;
 
 	@GetMapping(value = "/find-path")
-	public List<Edge> findPath(
+	public Path findPath(
 		@RequestParam(value = "origin", required = true)
 		String originId,
 		@RequestParam(value = "destination", required = true)
@@ -29,7 +30,7 @@ public class FindPathController {
 		DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
 		Vertex origin = graph.findVertex(originId);
 		Vertex destination = graph.findVertex(destinationId);
-		return pathFinder.findPath(origin, destination).getEdges();
+		return pathFinder.findPath(origin, destination);
 	}
 
 }

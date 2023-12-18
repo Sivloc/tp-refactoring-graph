@@ -33,6 +33,11 @@ public class Edge {
 	 */
 	private Vertex target;
 	
+	private LineString geometry;
+
+	public void setGeometry(LineString geometry) {
+		this.geometry = geometry;
+	}
 
 	Edge(Vertex source, Vertex target) {
 		this.source = source;
@@ -83,11 +88,17 @@ public class Edge {
 	 * @return
 	 */
 	public double getCost() {
+		if(geometry!=null) {
+			return geometry.getLength();
+		}
 		return source.getCoordinate().distance(target.getCoordinate());
 	}
 
 	@JsonSerialize(using = GeometrySerializer.class)
 	public LineString getGeometry() {
+		if(geometry!=null) {
+			return geometry;
+		}
 		GeometryFactory gf = new GeometryFactory();
 		return gf.createLineString(new Coordinate[] { source.getCoordinate(), target.getCoordinate() });
 	}

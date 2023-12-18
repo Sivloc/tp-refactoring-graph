@@ -32,6 +32,7 @@ public class Edge {
 	 * Sommet final
 	 */
 	private Vertex target;
+	
 
 	Edge(Vertex source, Vertex target) {
 		this.source = source;

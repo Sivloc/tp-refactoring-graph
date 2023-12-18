@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javassist.NotFoundException;
+
 @RestController
 public class FindPathController {
 
@@ -23,7 +25,7 @@ public class FindPathController {
 		String originId,
 		@RequestParam(value = "destination", required = true)
 		String destinationId
-	) {
+	) throws NotFoundException {
 		DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
 		Vertex origin = graph.findVertex(originId);
 		Vertex destination = graph.findVertex(destinationId);
